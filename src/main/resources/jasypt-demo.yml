@@ -1,0 +1,10 @@
+spring:  
+  profiles: dev
+
+### problem decrypting if encrypted properties are located in a different properties file (other than application.yml)
+com.transamerica.research.spring.boot.jasypt.demo:
+  person:
+    username: grannysmith
+    password: ENC(0xsGzEjacImaGIEWBZcgEbE4ktUmp+DM)   # apples4$1
+   
+   

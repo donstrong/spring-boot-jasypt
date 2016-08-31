@@ -1,0 +1,15 @@
+server: 
+  port: 8080
+  contextPath: /@project.artifactId@
+
+spring:
+  profiles.active: dev
+  jackson.serialization.INDENT_OUTPUT: true
+  devtools.restart.enabled: true
+
+### works fine if encrypted properties are located in application.yml
+#com.transamerica.research.spring.boot.jasypt.demo:
+#  person:
+#    username: grannysmith
+#    password: ENC(0xsGzEjacImaGIEWBZcgEbE4ktUmp+DM)   # apples4$1
+
