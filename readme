@@ -1,0 +1,44 @@
+This is a simple demo using jasypt 1.7 in a springboot application when @EnableConfigurationProperties is used in 
+conjunction with @EnableEncryptableProperties and where a properties file other than application.yml contains the 
+encrypted values.
+
+Regardless of different approaches to resolve this, I was unable to get jasypt to decrypt the value when the property
+was in jasypt-demo.yml.  However, if encrypted property is in application.yml, no problem (with some minor changes to
+PersonConfig.java).  Therefore, looking for assistance.
+
+This very simple REST service uses spring 4.2.4 and spring-boot 1.3.1.  Documentation at http://www.jasypt.org only
+indicates support for Spring 3.1, which may explain why.
+
+To test decryption of properties in a different config file (other than application.yml), start the service and 
+enter the following URL in a browser: 
+
+	http://localhost:8080/spring-boot-jasypt/person.  
+
+If successful (only when property also exists in application.yml), the following should be returned:
+
+{
+  "username" : "grannysmith",
+  "password" : "apples4$1"
+}
+
+If the encrypted property is ONLY present in jasypt-demo.yml AND the location of additional config files has been 
+included in @ConfigurationProperties(...), the following is returned:
+
+{
+  "username" : "grannysmith",
+  "password" : "ENC(0xsGzEjacImaGIEWBZcgEbE4ktUmp+DM)"
+}
+
+When the location of additional config files has NOT been included in @ConfigurationProperties(...), the following is 
+returned:
+
+{
+  "username" : null,
+  "password" : null
+}
+
+Therefore, @ConfigurationProperties must include "locations" for other config. file/s ... 
+
+	@ConfigurationProperties(prefix = "com.transamerica.research.spring.boot.jasypt.demo.person", locations = {"classpath:jasypt-demo.yml"})
+ 
+... but will result in the encrypted value being returned.
